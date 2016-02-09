@@ -9,10 +9,12 @@
  * @version $Id: Author: Wilt New in v1.5.5 $
  */
 if (!defined('IS_ADMIN_FLAG')) {
-	die('Illegal Access');
+    die('Illegal Access');
 }
+
 if (!defined('DB_PREFIX')) {
-	define('DB_PREFIX', '');
+    define('DB_PREFIX', '');
 }
 define('TABLE_SAGEPAY_TRANSACTION', DB_PREFIX . 'sagepay_transaction');
+
 
