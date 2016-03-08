@@ -24,7 +24,7 @@ class sagepay_zc_payment extends AbstractSagepayAPI
     /**
      * @var mixed|null
      */
-    public $version;
+    public $version = '1.00';
     /**
      * @var string
      */
@@ -48,7 +48,6 @@ class sagepay_zc_payment extends AbstractSagepayAPI
     public function __construct()
     {
         global $order;
-        $this->version = $this->getModuleDefineValue('_VNO');
         $this->title = $this->getModuleDefineValue('_CATALOG_TEXT_TITLE');
         $this->description = '';
         if ((defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG === true) || (!isset($_GET['main_page']) || $_GET['main_page'] == ''))
@@ -57,7 +56,7 @@ class sagepay_zc_payment extends AbstractSagepayAPI
             $this->description = $this->getModuleDefineValue('_ADMIN_TEXT_DESCRIPTION');
 
             if ($this->getModuleDefineValue('_STATUS')) {
-                $new_version_details = plugin_version_check_for_updates(2049, '1.00');
+                $new_version_details = plugin_version_check_for_updates(2049, $this->version);
                 if ($new_version_details !== FALSE) {
                     $this->title .= '<span class="alert">' . ' - NOTE: A NEW VERSION OF THIS PLUGIN IS AVAILABLE. <a href="' . $new_version_details['link'] . '" target="_blank">[Details]</a>' . '</span>';
                 }
