@@ -23,7 +23,7 @@ When installing the payment module from your admin > modules > payment, the foll
 
 Currently Sagepay requires that you have the PHP mcrypt module installed.
 If you have the Suhosin extension installed, you may have problems with this module.
-Please see [this faq entry](https://www.zen-cart.com/showthread.php?219158-Sagepay-Form-Integration) for more details.
+Please see [this faq entry](https://www.zen-cart.com/content.php?342-The-Sagepay-Form-module-has-an-error-regarding-Suhosin for more details) for more details.
 
 ## Testing
 
@@ -53,5 +53,5 @@ so as the 3D Secure authentication returns Fully Authenticated.
 
 ## Attribution
 
-This Integration was initially inspired by https://www.zen-cart.com/downloads.php?do=file&id=959
+This Integration was initially inspired by a [Nixak module](https://www.zen-cart.com/downloads.php?do=file&id=959) which also has a corresponding [Forum Support Thread](https://www.zen-cart.com/showthread.php?219158-Sagepay-Form-Integration)
 
