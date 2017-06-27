@@ -3,11 +3,11 @@
  * sagepay form
  *
  * @package paymentMethod
- * @copyright Copyright 2003-2016 Zen Cart Development Team
+ * @copyright Copyright 2003-2017 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @copyright Portions Copyright Nixak
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: Author: zcwilt  Wed Jan 6 17:26:51 2016 +0000 New in v1.5.5 $
+ * @version $Id: Author: zcwilt  June 2017 New in v1.5.5 $
  */
 require_once(DIR_FS_CATALOG . DIR_WS_MODULES . 'payment/sagepay_zc/SagepayBasket.php');
 require_once(DIR_FS_CATALOG . DIR_WS_MODULES . 'payment/sagepay_zc/SagepayCustomer.php');
@@ -42,8 +42,8 @@ class sagepay_zc_form extends sagepay_zc_payment
             $this->enabled = false;
         }
         if ((extension_loaded('suhosin') || defined("SUHOSIN_PATCH"))  && ini_get('suhosin.get.max_value_length') < 600) {
-            $this->title .= '<span class="alert">' . TEXT_TITLE_SUHOSIN_ERROR . '</span>';
-            $this->description = '<span class="alert">' . TEXT_DESCRIPTION_SUHOSIN_GET_LENGTH_ERROR . '</span><br><br>' . $this->description;
+            $this->title .= '<span class="">' . TEXT_TITLE_SUHOSIN_ERROR . '</span>';
+            $this->description = '<span class="">' . TEXT_DESCRIPTION_SUHOSIN_GET_LENGTH_ERROR . '</span><br><br>' . $this->description;
             $this->enabled = false;
         }
     }

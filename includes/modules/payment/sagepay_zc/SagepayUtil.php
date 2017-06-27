@@ -3,11 +3,11 @@
  * sagepay form
  *
  * @package paymentMethod
- * @copyright Copyright 2003-2016 Zen Cart Development Team
+ * @copyright Copyright 2003-2017 Zen Cart Development Team
  * @copyright portions (c) 2013, Sage Pay Europe Ltd.
  * @copyright Portions Copyright Nixak
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: Author: zcwilt  Fri Jan 1 14:43:31 2016 +0000 New in v1.5.5 $
+ * @version $Id: Author: zcwilt  June 2017 New in v1.5.5 $
  */
 
 /**
@@ -39,8 +39,6 @@ class SagepayUtil
         if (!empty($caCertPath)) {
             curl_setopt($curlSession, CURLOPT_SSL_VERIFYPEER, 1);
             curl_setopt($curlSession, CURLOPT_CAINFO, $caCertPath);
-        } else {
-            curl_setopt($curlSession, CURLOPT_SSL_VERIFYPEER, 0);
         }
 
         $rawresponse = curl_exec($curlSession);
@@ -195,7 +193,7 @@ class SagepayUtil
     {
         $plain = '';
         foreach ($cryptEntries as $key => $value) {
-            $plain .= $key . '=' . $value . '&';
+            $plain .= $key . '=' . urlencode($value) . '&';
         }
         $plain = rtrim($plain, "&");
         return $plain;

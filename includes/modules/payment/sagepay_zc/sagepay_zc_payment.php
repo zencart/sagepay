@@ -3,11 +3,11 @@
  * sagepay form
  *
  * @package paymentMethod
- * @copyright Copyright 2003-2016 Zen Cart Development Team
+ * @copyright Copyright 2003-2017 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @copyright Portions Copyright Nixak
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: Author: DrByte  Mar 22 17:50:01 2016 -0500 New in v1.5.5 $
+ * @version $Id: Author: DrByte  June 2017 New in v1.5.5 $
  */
 require_once(DIR_FS_CATALOG . DIR_WS_MODULES . 'payment/sagepay_zc/AbstractSagepayAPI.php');
 
@@ -165,7 +165,7 @@ class sagepay_zc_payment extends AbstractSagepayAPI
         global $db;
         $db->Execute("INSERT INTO " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable Sagepay Form Module', '" . $this->getModuleDefineName('_STATUS') . "', 'True', 'Do you want to accept Sagepay Form payments?', '6', '0', 'zen_cfg_select_option(array(\'True\', \'False\'), ', now())");
         $db->Execute("INSERT INTO " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('SagePay Vendor Name', '" . $this->getModuleDefineName('_VENDOR_NAME') . "', 'testvendor', 'Vendor Name to use with the Sagepay Form service.', '6', '1', now())");
-        $db->Execute("INSERT INTO " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Password', '" . $this->getModuleDefineName('_PASSWORD') . "', 'testvendor', 'Password to use with the Sagepay Form service. Normally your encryption password', '6', '2', now())");
+        $db->Execute("INSERT INTO " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Password', '" . $this->getModuleDefineName('_PASSWORD') . "', 'testpassword', 'Password to use with the Sagepay Form service. Normally your encryption password', '6', '2', now())");
         $db->Execute("INSERT INTO " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Vendors email address', '" .  $this->getModuleDefineName('_VENDOR_EMAIL') . "', '', 'Vendors email address to use with the Sagepay Form service. Leave blank to use the Zen Cart store owners email address. If you enter an email address here MAKE SURE it is correct, else it will bounce.', '6', '3', now())");
         $db->Execute("INSERT INTO " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Transaction Mode', '" .  $this->getModuleDefineName('_TEST_STATUS') . "', 'test', 'Use Test or Live Mode?', '6', '4', 'zen_cfg_select_option(array(\'test\', \'live\'), ', now())");
         $db->Execute("INSERT INTO " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Transaction Type', '" .  $this->getModuleDefineName('_TXTYPE') . "', 'Payment', 'Choose which payment type to use for all transactions, Payment is normally the default', '6', '5', 'zen_cfg_select_option(array(\'Payment\', \'Deferred\', \'Authenticate\'), ', now())");
@@ -264,10 +264,10 @@ class sagepay_zc_payment extends AbstractSagepayAPI
  * this is ONLY here to offer compatibility with ZC versions prior to v1.5.2
  */
 if (!function_exists('plugin_version_check_for_updates')) {
-    function plugin_version_check_for_updates($plugin_file_id = 0, $version_string_to_compare = '')
+    function plugin_version_check_for_updates($plugin_file_id = 0, $version_string_to_compare = '', $strict_zc_version_compare = false)
     {
-        if ($plugin_file_id == 0) return FALSE;
-        $new_version_available = FALSE;
+        if ($plugin_file_id == 0) return false;
+        $new_version_available = false;
         $lookup_index = 0;
         $url1 = 'https://plugins.zen-cart.com/versioncheck/'.(int)$plugin_file_id;
         $url2 = 'https://www.zen-cart.com/versioncheck/'.(int)$plugin_file_id;
@@ -285,41 +285,43 @@ if (!function_exists('plugin_version_check_for_updates')) {
         $errno = curl_errno($ch);
 
         if ($error > 0) {
-          trigger_error('CURL error checking plugin versions: ' . $errno . ':' . $error . "\nTrying http instead.");
-          curl_setopt($ch, CURLOPT_URL, str_replace('tps:', 'tp:', $url1));
-          $response = curl_exec($ch);
-          $error = curl_error($ch);
-          $errno = curl_errno($ch);
+            trigger_error('CURL error checking plugin versions: ' . $errno . ':' . $error . "\nTrying http instead.");
+            curl_setopt($ch, CURLOPT_URL, str_replace('tps:', 'tp:', $url1));
+            $response = curl_exec($ch);
+            $error = curl_error($ch);
+            $errno = curl_errno($ch);
         }
         if ($error > 0) {
-          trigger_error('CURL error checking plugin versions: ' . $errno . ':' . $error . "\nTrying www instead.");
-          curl_setopt($ch, CURLOPT_URL, str_replace('tps:', 'tp:', $url2));
-          $response = curl_exec($ch);
-          $error = curl_error($ch);
-          $errno = curl_errno($ch);
+            trigger_error('CURL error checking plugin versions: ' . $errno . ':' . $error . "\nTrying www instead.");
+            curl_setopt($ch, CURLOPT_URL, str_replace('tps:', 'tp:', $url2));
+            $response = curl_exec($ch);
+            $error = curl_error($ch);
+            $errno = curl_errno($ch);
         }
         curl_close($ch);
         if ($error > 0 || $response == '') {
-          trigger_error('CURL error checking plugin versions: ' . $errno . ':' . $error . "\nTrying file_get_contents() instead.");
-          $ctx = stream_context_create(array('http' => array('timeout' => 5)));
-          $response = file_get_contents($url1, null, $ctx);
-          if ($response === false) {
-            trigger_error('file_get_contents() error checking plugin versions.' . "\nTrying http instead.");
-            $response = file_get_contents(str_replace('tps:', 'tp:', $url1), null, $ctx);
-          }
-          if ($response === false) {
-            trigger_error('file_get_contents() error checking plugin versions.' . "\nAborting.");
-            return false;
-          }
+            trigger_error('CURL error checking plugin versions: ' . $errno . ':' . $error . "\nTrying file_get_contents() instead.");
+            $ctx = stream_context_create(array('http' => array('timeout' => 5)));
+            $response = file_get_contents($url1, null, $ctx);
+            if ($response === false) {
+                trigger_error('file_get_contents() error checking plugin versions.' . "\nTrying http instead.");
+                $response = file_get_contents(str_replace('tps:', 'tp:', $url1), null, $ctx);
+            }
+            if ($response === false) {
+                trigger_error('file_get_contents() error checking plugin versions.' . "\nAborting.");
+                return false;
+            }
         }
 
         $data = json_decode($response, true);
         if (!$data || !is_array($data)) return false;
         // compare versions
-        if (strcmp($data[$lookup_index]['latest_plugin_version'], $version_string_to_compare) > 0) $new_version_available = TRUE;
+        if (strcmp($data[$lookup_index]['latest_plugin_version'], $version_string_to_compare) > 0) $new_version_available = true;
         // check whether present ZC version is compatible with the latest available plugin version
-        if (!in_array('v'. PROJECT_VERSION_MAJOR . '.' . PROJECT_VERSION_MINOR, $data[$lookup_index]['zcversions'])) $new_version_available = FALSE;
-        return ($new_version_available) ? $data[$lookup_index] : FALSE;
+        $zc_version = PROJECT_VERSION_MAJOR . '.' . preg_replace('/[^0-9.]/', '', PROJECT_VERSION_MINOR);
+        if ($strict_zc_version_compare) $zc_version = PROJECT_VERSION_MAJOR . '.' . PROJECT_VERSION_MINOR;
+        if (!in_array('v'. $zc_version, $data[$lookup_index]['zcversions'])) $new_version_available = false;
+        return ($new_version_available) ? $data[$lookup_index] : false;
     }
 
 }

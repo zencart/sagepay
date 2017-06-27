@@ -3,7 +3,7 @@
  * sagepay form
  *
  * @package paymentMethod
- * @copyright Copyright 2003-2016 Zen Cart Development Team
+ * @copyright Copyright 2003-2017 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: Author: zcwilt  Wed Jan 6 18:17:56 2016 +0000 New in v1.5.5 $
@@ -48,5 +48,5 @@ define('MODULE_PAYMENT_SAGEPAY_ZC_FORM_PAYPAL_PAYER_STATUS', 'PayPal Payer Statu
 
 define('TEXT_TITLE_MCRYPT_ERROR', ' (mcrypt problem)');
 define('TEXT_DESCRIPTION_MCRYPT_ERROR', ' The PHP mcrypt extension is not available. Sagepay Form will be disabled at checkout.');
-define('TEXT_TITLE_SUHOSIN_ERROR', ' (suhosin problem)');
+define('TEXT_TITLE_SUHOSIN_ERROR', ' (Incompatible: suhosin problem)');
 define('TEXT_DESCRIPTION_SUHOSIN_GET_LENGTH_ERROR', ' The Suhosin setting for the length of GET parameters is set too low. Please see <a target="_blank" href="https://www.zen-cart.com/content.php?342-The-Sagepay-Form-module-has-an-error-regarding-Suhosin for more details">this faq entry</a>.');
