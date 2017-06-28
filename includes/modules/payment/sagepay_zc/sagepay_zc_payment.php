@@ -24,7 +24,7 @@ class sagepay_zc_payment extends AbstractSagepayAPI
     /**
      * @var mixed|null
      */
-    public $version = '1.00';
+    public $version = '1.10';
     /**
      * @var string
      */

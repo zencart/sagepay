@@ -46,7 +46,5 @@ define('MODULE_PAYMENT_SAGEPAY_ZC_FORM_LAST_4_CARD_DIGITS', 'Last 4 Digits of Ca
 define('MODULE_PAYMENT_SAGEPAY_ZC_FORM_PAYPAL_ADDRESS_STATUS', 'PayPal Address Status:');
 define('MODULE_PAYMENT_SAGEPAY_ZC_FORM_PAYPAL_PAYER_STATUS', 'PayPal Payer Status:');
 
-define('TEXT_TITLE_MCRYPT_ERROR', ' (mcrypt problem)');
-define('TEXT_DESCRIPTION_MCRYPT_ERROR', ' The PHP mcrypt extension is not available. Sagepay Form will be disabled at checkout.');
 define('TEXT_TITLE_SUHOSIN_ERROR', ' (Incompatible: suhosin problem)');
 define('TEXT_DESCRIPTION_SUHOSIN_GET_LENGTH_ERROR', ' The Suhosin setting for the length of GET parameters is set too low. Please see <a target="_blank" href="https://www.zen-cart.com/content.php?342-The-Sagepay-Form-module-has-an-error-regarding-Suhosin for more details">this faq entry</a>.');
