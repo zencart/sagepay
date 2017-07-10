@@ -2,9 +2,7 @@
 
 ## Integrations
 
-Currently the only integration is for the Sagepay Form API
-
-Integration for Sagepay Server coming soon.
+This Integration is only for the Sagepay Form API
 
 
 ## Installation
@@ -21,7 +19,6 @@ When installing the payment module from your admin > modules > payment, the foll
 
 ## Dependencies
 
-Currently Sagepay requires that you have the PHP mcrypt module installed.
 If you have the Suhosin extension installed, you may have problems with this module.
 Please see [this faq entry](https://www.zen-cart.com/content.php?342-The-Sagepay-Form-module-has-an-error-regarding-Suhosin for more details) for more details.
 
@@ -48,8 +45,7 @@ CV2, Billing Address and Billing Post Code Numbers.
 
 These are the only values which will return as Matched.
 
-You will also need to enter the 3D Secure password as " password " (it is case sensitive)<br >
-so as the 3D Secure authentication returns Fully Authenticated.
+You will also need to enter the 3D Secure password as " password " (it is case sensitive) for the 3D Secure authentication to return Fully Authenticated.
 
 ## Attribution
 

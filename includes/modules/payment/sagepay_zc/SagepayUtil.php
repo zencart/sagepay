@@ -148,9 +148,9 @@ class SagepayUtil
     public static function encryptAndEncode($strIn, $strEncryptionPassword)
     {
         $strIV = $strEncryptionPassword;
-        $strIn = self::addPKCS5Padding($strIn);
-        $strCrypt = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $strEncryptionPassword, $strIn, MCRYPT_MODE_CBC, $strIV);
-        return "@" . bin2hex($strCrypt);
+//        $strIn = self::addPKCS5Padding($strIn);
+        $strCrypt = openssl_encrypt($strIn, 'AES-128-CBC', $strEncryptionPassword, OPENSSL_RAW_DATA, $strIV);
+        return "@" . strtoupper(bin2hex($strCrypt));
     }
 
     /**
@@ -179,7 +179,7 @@ class SagepayUtil
             $strIV = $strEncryptionPassword;
             $strIn = substr($strIn, 1);
             $strIn = pack('H*', $strIn);
-            return mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $strEncryptionPassword, $strIn, MCRYPT_MODE_CBC, $strIV);
+            return openssl_decrypt($strIn, 'AES-128-CBC', $strEncryptionPassword, OPENSSL_RAW_DATA, $strIV);
         } else {
             echo "Error: #69053";
         }
